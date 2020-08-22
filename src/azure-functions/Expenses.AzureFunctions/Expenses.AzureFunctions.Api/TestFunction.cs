@@ -10,9 +10,9 @@ using Newtonsoft.Json;
 
 namespace Expenses.AzureFunctions.Api
 {
-    public static class Function1
+    public static class TestFunction
     {
-        [FunctionName("Function1")]
+        [FunctionName("TestFunction")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
