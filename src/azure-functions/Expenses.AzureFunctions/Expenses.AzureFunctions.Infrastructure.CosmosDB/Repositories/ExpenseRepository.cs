@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Expenses.AzureFunctions.Domain.Models;
 using Microsoft.Azure.Cosmos;
@@ -23,9 +24,29 @@ namespace Expenses.AzureFunctions.Infrastructure.CosmosDB.Repositories
             _container = dbClient.GetContainer(cosmosDbOptions.Value.DatabaseName, ContainerName);
         }
 
-        public async Task CreateAsync(Expense model)
+        public async Task<Expense> CreateAsync(Expense model)
         {
-            await _container.CreateItemAsync<Expense>(model, new PartitionKey(model.Id.ToString()));
+            return await _container.CreateItemAsync<Expense>(model, new PartitionKey(model.Id.ToString()));
+        }
+
+        public async Task<Expense> GetByIdAsync(Guid id)
+        {
+            return await _container.ReadItemAsync<Expense>(id.ToString(), new PartitionKey(id.ToString()));
+        }
+
+        public Task<Expense> GetByNameAsync(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IReadOnlyList<Expense>> GetListAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Expense> UpdateAsync(Expense model)
+        {
+            throw new NotImplementedException();
         }
     }
 }

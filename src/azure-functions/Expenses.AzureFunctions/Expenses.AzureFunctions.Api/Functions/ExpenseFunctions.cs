@@ -21,7 +21,7 @@ namespace Expenses.AzureFunctions.Api.Functions
         }
 
         [FunctionName("CreateExpense")]
-        public async Task<IActionResult> Run(
+        public async Task<IActionResult> CreateExpense(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "expense")] HttpRequest req,
             ILogger log)
         {
@@ -29,10 +29,25 @@ namespace Expenses.AzureFunctions.Api.Functions
 
             CreateExpenseCommand command = JsonConvert.DeserializeObject<CreateExpenseCommand>(content);
 
-            if (await _expenseService.CreateExpenseAsync(command).ConfigureAwait(false))
-                return new OkObjectResult(command);
+            var createResult = await _expenseService.CreateAsync(command).ConfigureAwait(false);
+
+            if (createResult != null)
+                return new OkObjectResult(createResult);
             else
-                return new BadRequestObjectResult(new { error = "Invalid command!" });
+                return new BadRequestObjectResult(new { error = "Invalid request!" });
+        }
+
+        [FunctionName("GetExpenseById")]
+        public async Task<IActionResult> GetExpenseById(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "expense/{id}")] HttpRequest req,
+            string id,
+            ILogger log)
+        {
+            var getByIdResult = await _expenseService.GetByIdAsync(id).ConfigureAwait(false);
+            if (getByIdResult != null)
+                return new OkObjectResult(getByIdResult);
+            else
+                return new BadRequestObjectResult(new { error = "Invalid request!" });
         }
     }
 }
