@@ -10,11 +10,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FFE2C875-72EA-4289-B99C-7F5E1F574EA9}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		..\..\..\README.md = ..\..\..\README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Expenses.AzureFunctions.Infrastructure.CosmosDB", "Expenses.AzureFunctions.Infrastructure.CosmosDB\Expenses.AzureFunctions.Infrastructure.CosmosDB.csproj", "{BB8A65C1-7404-4CDD-B0E7-A53FBDF8A326}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Expenses.AzureFunctions.Domain", "Expenses.AzureFunctions.Domain\Expenses.AzureFunctions.Domain.csproj", "{56A927A6-423F-4801-9E19-DED6B6BA288C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Expenses.AzureFunctions.Domain", "Expenses.AzureFunctions.Domain\Expenses.AzureFunctions.Domain.csproj", "{56A927A6-423F-4801-9E19-DED6B6BA288C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
