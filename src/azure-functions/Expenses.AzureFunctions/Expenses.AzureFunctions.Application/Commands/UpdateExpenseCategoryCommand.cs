@@ -2,7 +2,7 @@
 
 namespace Expenses.AzureFunctions.Application.Commands
 {
-    public class UpdateExpenseCommand : CreateExpenseCommand
+    public class UpdateExpenseCategoryCommand : CreateExpenseCategoryCommand
     {
         public Guid Id { get; set; }
     }

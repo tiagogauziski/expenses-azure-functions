@@ -2,7 +2,7 @@
 
 namespace Expenses.AzureFunctions.Application.Commands
 {
-    public class CreateExpenseCommand
+    public class CreateExpenseCategoryCommand
     {
         public string Name { get; set; }
 

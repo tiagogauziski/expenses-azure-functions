@@ -1,4 +1,4 @@
-﻿using Expenses.AzureFunctions.Application.Services;
+﻿using Expenses.AzureFunctions.Application.Services.Expense;
 using Expenses.AzureFunctions.Infrastructure.CosmosDB;
 using Microsoft.Azure.Cosmos.Fluent;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
@@ -22,7 +22,7 @@ namespace Expenses.AzureFunctions.Api
 
             builder.Services.AddHttpClient();
 
-            builder.Services.AddScoped<IExpenseService, ExpenseService>();
+            builder.Services.AddScoped<IExpenseCategoryService, ExpenseCategoryService>();
 
             builder.Services.AddRepositoryDependencies();
 

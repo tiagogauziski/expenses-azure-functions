@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Expenses.AzureFunctions.Infrastructure.CosmosDB.Interfaces;
 using Expenses.AzureFunctions.Infrastructure.CosmosDB.Repositories;
 using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,7 +12,7 @@ namespace Expenses.AzureFunctions.Infrastructure.CosmosDB
     {
         public static IServiceCollection AddRepositoryDependencies(this IServiceCollection services)
         {
-            services.AddSingleton<IExpenseRepository, ExpenseRepository>();
+            services.AddSingleton<IExpenseCategoryRepository, ExpenseCategoryRepository>();
 
             return services;
         }

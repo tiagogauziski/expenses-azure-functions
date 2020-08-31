@@ -1,7 +1,8 @@
 using System.IO;
 using System.Threading.Tasks;
+using Expenses.AzureFunctions.Api.Functions.Expense.Contracts;
 using Expenses.AzureFunctions.Application.Commands;
-using Expenses.AzureFunctions.Application.Services;
+using Expenses.AzureFunctions.Application.Services.Expense;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
@@ -11,23 +12,28 @@ using Newtonsoft.Json;
 
 namespace Expenses.AzureFunctions.Api.Functions
 {
-    public class ExpenseFunctions
+    public class ExpenseCategoryFunctions
     {
-        private readonly IExpenseService _expenseService;
+        private readonly IExpenseCategoryService _expenseService;
 
-        public ExpenseFunctions(IExpenseService expenseService)
+        public ExpenseCategoryFunctions(IExpenseCategoryService expenseService)
         {
             _expenseService = expenseService ?? throw new System.ArgumentNullException(nameof(expenseService));
         }
 
-        [FunctionName("CreateExpense")]
+        [FunctionName("CreateExpenseCategory")]
         public async Task<IActionResult> CreateExpense(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "expense")] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "expense-category")] HttpRequest req,
             ILogger log)
         {
             var content = await new StreamReader(req.Body).ReadToEndAsync();
 
-            CreateExpenseCommand command = JsonConvert.DeserializeObject<CreateExpenseCommand>(content);
+            var request = JsonConvert.DeserializeObject<CreateExpenseCategoryRequest>(content);
+
+            var command = new CreateExpenseCategoryCommand()
+            {
+                Name = request.Name
+            };
 
             var createResult = await _expenseService.CreateAsync(command).ConfigureAwait(false);
 
@@ -37,9 +43,9 @@ namespace Expenses.AzureFunctions.Api.Functions
                 return new BadRequestObjectResult(new { error = "Invalid request!" });
         }
 
-        [FunctionName("GetExpenseById")]
+        [FunctionName("GetExpenseCategoryById")]
         public async Task<IActionResult> GetExpenseById(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "expense/{id}")] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "expense-category/{id}")] HttpRequest req,
             string id,
             ILogger log)
         {
